@@ -31,6 +31,6 @@ runs:
           sudo mv kind /usr/local/bin/
     - name: Verify binary
       shell: bash
-      run: kind versions
+      run: kind version
 
 ...
