@@ -1,0 +1,36 @@
+---
+# yaml-language-server: $schema=https://www.schemastore.org/github-action.json
+name: 'actionhippie-setup-kind'
+description: 'Install the Packwiz binary'
+author: 'actionhippie'
+branding:
+  icon: award
+  color: green
+
+inputs:
+  version:
+    description: |
+      Version of the Kind binary
+    required: false
+    default: 'latest'
+
+runs:
+  using: 'composite'
+
+  steps:
+    - name: Download binary
+      shell: bash
+      run: |
+        if [ "${{ inputs.version }}" == "latest" ]; then
+          DOWNLOAD_URL="https://kind.sigs.k8s.io/dl/latest/kind-linux-$(go env GOARCH)"
+        else
+          DOWNLOAD_URL="https://github.com/kubernetes-sigs/kind/releases/download/v${{ inputs.version }}/kind-linux-$(go env GOARCH)"
+        fi
+        curl -sSLo kind "$DOWNLOAD_URL" && \
+          chmod +x kind && \
+          sudo mv kind /usr/local/bin/
+    - name: Verify binary
+      shell: bash
+      run: kind versions
+
+...
