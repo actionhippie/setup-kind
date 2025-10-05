@@ -28,7 +28,9 @@ jobs:
 
 ## Inputs
 
-None
+### `version`
+
+Version of the Kind binary
 
 ## Outputs
 
